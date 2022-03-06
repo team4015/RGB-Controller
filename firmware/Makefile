@@ -9,9 +9,13 @@ CCFLAGS += -mwarn=0
 ART = build
 EXE = rgb_controller
 
+SRC += main.c
 SRC += init.c
+SRC += uart.c
 
+HDR += pins.h
 HDR += init.h
+HDR += uart.h
 
 # ================================================= #
 
@@ -20,7 +24,7 @@ OBJ = $(SRC:.c=.p1)
 $(shell mkdir -p $(ART))
 
 $(ART)/$(EXE): $(HDR) $(SRC)
-	@$(CC) $(CCFLAGS) $(SRC) -o $@
+	$(CC) $(CCFLAGS) $(SRC) -o $@
 
 clean:
 	@rm -rf $(ART)

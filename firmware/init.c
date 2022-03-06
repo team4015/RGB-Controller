@@ -1,10 +1,11 @@
 #include <xc.h>
 #include <pic16f690.h>
 
+#include "pins.h"
+
 #include "init.h"
 
 #define LED_DELAY     75000
-#define LED           RA5
 
 void init_hardware(void)
 {
@@ -27,9 +28,9 @@ void init_hardware(void)
 
 	// OSCILLATOR FREQUENCY //
 
-	OSCCONbits.IRCF = 0b110;      // Fosc = 4MHz
+	OSCCONbits.IRCF = 0b110;      // Fosc = 4 MHz
 	OSCCONbits.SCS = 1;           // use internal oscillator as system clock
-	OSCTUNEbits.TUN = 0b00000;    // tune internal oscillator to factory-calibrated frequencyß
+	OSCTUNEbits.TUN = 0b00000;    // tune internal oscillator to factory-calibrated frequency
 
 	init_indicator();       // flash status LEDs
 }
