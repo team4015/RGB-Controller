@@ -34,11 +34,11 @@ void pwm_init(void)
 
 	/* Fosc = 4 MHz -> input clock = 4 Mhz / 4 = 1 MHz
 	 * with a 1:1 prescaler and postscaler.
-	 * 1 MHz / 100 = 10 kHz PWM refresh rate.
+	 * 1 MHz / 50 = 20 kHz PWM refresh rate.
 	 * We don't want the interrupt rate to be too
 	 * high because it will starve the UART. */
 
-	PR2 = 100;   // set timer period (interrupt frequency = input clock / PR2)
+	PR2 = 50;   // set timer period (interrupt frequency = input clock / PR2)
 
 	// reset counters
 	red_counter =  0;
