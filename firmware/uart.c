@@ -8,6 +8,7 @@
 #include <string.h>
 
 #include "pins.h"
+#include "led.h"
 
 void uart_init(void)
 {

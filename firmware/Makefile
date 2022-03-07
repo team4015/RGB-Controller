@@ -11,10 +11,12 @@ EXE = rgb_controller
 
 SRC += main.c
 SRC += init.c
+SRC += led.c
 SRC += uart.c
 
 HDR += pins.h
 HDR += init.h
+HDR += led.h
 HDR += uart.h
 
 # ================================================= #
