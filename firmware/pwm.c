@@ -3,10 +3,15 @@
 #include <xc.h>
 #include <pic16f690.h>
 
-#include "led.h"
+#include "pins.h"
 
-char counter = 0;
-char target = 0;
+static unsigned char red_counter = 0;
+static unsigned char green_counter = 0;
+static unsigned char blue_counter = 0;
+
+static unsigned char red_brightness = 1;
+static unsigned char green_brightness = 1;
+static unsigned char blue_brightness = 1;
 
 void pwm_init(void)
 {
@@ -34,7 +39,22 @@ void pwm_init(void)
 	 * We don't want the interrupt rate to be too
 	 * hight because it will starve the UART. */
 
-	counter = 0;   // reset counter
+	// reset counters
+	red_counter =  0;
+	green_counter =  0;
+	blue_counter =  0;
+
+	// set all colours to be initially off
+	pwm_red(0);
+	pwm_green(0);
+	pwm_blue(0);
+
+	// RGB //
+
+	// set pins as outputs
+	RED_TRIS = 0;
+	GREEN_TRIS = 0;
+	BLUE_TRIS = 0;
 }
 
 void __interrupt() isr(void)
@@ -43,15 +63,27 @@ void __interrupt() isr(void)
 	{
 		PIR1bits.TMR2IF = 0;   // clear the interrupt flag
 
-		if (counter < target)
-		{
-			led_on();
-		}
-		else
-		{
-			led_off();
-		}
+		RED = (red_counter < red_brightness);
+		GREEN = (green_counter < green_brightness);
+		BLUE = (blue_counter < blue_brightness);
 
-		counter++;
+		red_counter++;
+		green_counter++;
+		blue_counter++;
 	}
+}
+
+void pwm_red(unsigned char brightness)
+{
+	red_brightness = brightness;
+}
+
+void pwm_green(unsigned char brightness)
+{
+	green_brightness = brightness;
+}
+
+void pwm_blue(unsigned char brightness)
+{
+	blue_brightness = brightness;
 }

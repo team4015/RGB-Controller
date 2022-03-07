@@ -13,6 +13,10 @@ void main(void)
 	uart_init();
 	pwm_init();
 
+	pwm_green(255);
+	pwm_red(255);
+	pwm_blue(255);
+
 	while (1)
 	{
 		uart_echo();

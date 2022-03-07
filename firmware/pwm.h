@@ -2,6 +2,8 @@
 #define PWM_H
 
 void pwm_init(void);
-//void pwm_set(int channel, char value);
+void pwm_red(unsigned char brightness);
+void pwm_green(unsigned char brightness);
+void pwm_blue(unsigned char brightness);
 
 #endif /* PWM_H */
