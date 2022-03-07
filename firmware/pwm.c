@@ -3,48 +3,51 @@
 #include <xc.h>
 #include <pic16f690.h>
 
-#include "uart.h"
 #include "led.h"
 
 char counter = 0;
-char target = 1;
+char target = 128;
 
 void pwm_init(void)
 {
-	// TIMER 0 //
+	// TIMER 2 //
 
-	/* Timer0 is incremented on every clock cycle.
-	 * INTCON.T0IF is set whenever TMR0 overflows
-	 * from 255 to 0 and must be cleared manually. */
+	/* The Timer2 value is saved in TMR2.  It takes
+	 * (Fosc / 4) * prescaler as input and compares
+	 * TMR2 to PR2.  TMR2 always resets to 0 and
+	 * increments until it matches PR2 (after postscaler).
+	 * When matched, the PIR1.TMR2IF interrupt flag
+	 * is set and must be manually cleared. */
 
-	OPTION_REGbits.T0CS = 0;     // set timer clock source to (Fosc / 4) -> 1 MHz
-	OPTION_REGbits.PSA = 0;      // assign prescaler to Timer0 instead of WDT
-	OPTION_REGbits.PS = 0b0;   // 1:2 prescaler
+	T2CONbits.TMR2ON = 1;        // turn on timer
+	T2CONbits.T2CKPS = 0b00;     // 1:1 prescaler
+	T2CONbits.TOUTPS = 0b0000;   // 1:1 postscaler
 
 	INTCONbits.GIE = 1;    // enable global interrupts
-	INTCONbits.T0IE = 1;   // enable interrupts when Timer0 overflows
-	INTCONbits.T0IF = 0;   // clear interrupt flag bit
+	INTCONbits.PEIE = 1;   // enable peripherial interrupts
+	PIE1bits.TMR2IE = 1;   // enable Timer2 interrupt
+
+	PR2 = 120;   // set period to 1 (interrupt frequency = (Fosc / 4) * PR2)
 
 	counter = 0;
 }
 
 void __interrupt() isr(void)
 {
-    if (INTCONbits.T0IF == 0)
+    if (PIR1bits.TMR2IF == 0)
 	{
 		return;
 	}
 
-	INTCONbits.T0IF = 0;   // clear the interrupt flag
-	if (counter == 0)
+	PIR1bits.TMR2IF = 0;   // clear the interrupt flag
+	if (counter < target)
 	{
 		led_on();
 	}
-	else if (counter == target)
+	else
 	{
 		led_off();
 	}
-	uart_transmit_byte('X');
 
 	counter++;
 }
