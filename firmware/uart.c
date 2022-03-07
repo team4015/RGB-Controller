@@ -99,53 +99,6 @@ void uart_echo(void)
 	uart_transmit_byte(uart_receive_byte());
 }
 
-//int uart_transmit_message(Message message)
-//{
-//	char * data = message_string(message);
-//	int length = strlen(data);
-
-//	uart_transmit(data, length);
-//	uart_transmit_byte('\r');   // carriage return [Enter] indicates end of transmission
-
-//	return length + 1;
-//}
-
-//Message uart_receive_message(void)
-//{
-//	char next = 0;
-//	char data [MAX_MESSAGE_SIZE];
-//	int length = sizeof(data);
-
-//	memset(data, 0, length);
-
-//	for (int i = 0; i < length - 1; i++)
-//	{
-//		next = uart_receive_byte();
-
-//		if (next == '\r')   // carriage return [Enter] indicates end of transmission
-//		{
-//			break;
-//		}
-
-//		data[i] = next;
-//	}
-
-//	if (data[0] == '\0')   // empty message string
-//	{
-//		return MESSAGE_UNKNOWN;
-//	}
-
-//	for (Message message = 0; message < NUM_MESSAGES; message++)
-//	{
-//		if (strncmp(data, message_string(message), MAX_MESSAGE_SIZE) == 0)
-//		{
-//			return message;
-//		}
-//	}
-
-//	return MESSAGE_UNKNOWN;
-//}
-
 void putch(char byte)
 {
     uart_transmit_byte(byte);
