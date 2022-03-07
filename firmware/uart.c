@@ -1,14 +1,13 @@
 // screen tty.usbserial-AL065BVB <baud>
 // (ctrl + a + k) ---> y
 
+#include "uart.h"
+
 #include <xc.h>
 #include <pic16f690.h>
-
 #include <string.h>
 
 #include "pins.h"
-
-#include "uart.h"
 
 void uart_init(void)
 {
@@ -29,21 +28,19 @@ void uart_init(void)
 
 	// BAUD RATE //
 
-	// 1200 bps @ Fosc = 4 MHz
+	// 9600 bps @ Fosc = 4 MHz
 
-	TXSTAbits.BRGH = 1;     // use high baud rate
+	TXSTAbits.BRGH = 1;     // use high baud rate settings
 	BAUDCTLbits.BRG16 = 1;  // use 16-bit baud rate generator
 	BAUDCTLbits.SCKP = 0;   // don't invert transmitted bits
-	SPBRGH = 0x03;          // high register BRG multiplier
-	SPBRG = 0x40;           // low register BRG multiplier
+	SPBRGH = 0;             // high register BRG multiplier
+	SPBRG = 103;            // low register BRG multiplier
 }
 
 void uart_transmit_byte(char byte)
 {
-	//led_on();
 	while (TXSTAbits.TRMT == 0);   // wait for TX register to empty
 	TXREG = byte;                  // load new byte into TX register
-	//led_off();
 }
 
 char uart_receive_byte(void)

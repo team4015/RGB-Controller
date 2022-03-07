@@ -1,11 +1,10 @@
 #ifndef UART_H
 #define UART_H
 
-#include <stdio.h>
+/* To use printf() over UART TX,
+ * simply include stdio.h and call printf(); */
 
 #define NEWLINE   "\r\n"
-
-#define uart_print printf
 
 void uart_init(void);
 void uart_transmit_byte(char byte);

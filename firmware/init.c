@@ -1,9 +1,9 @@
+#include "init.h"
+
 #include <xc.h>
 #include <pic16f690.h>
 
 #include "pins.h"
-
-#include "init.h"
 
 #define LED_DELAY     75000
 
