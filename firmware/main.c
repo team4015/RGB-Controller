@@ -15,6 +15,6 @@ void main(void)
 
 	while (1)
 	{
-
+		uart_echo();
 	}
 }

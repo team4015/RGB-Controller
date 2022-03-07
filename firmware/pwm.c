@@ -6,7 +6,7 @@
 #include "led.h"
 
 char counter = 0;
-char target = 128;
+char target = 0;
 
 void pwm_init(void)
 {
@@ -16,8 +16,8 @@ void pwm_init(void)
 	 * (Fosc / 4) * prescaler as input and compares
 	 * TMR2 to PR2.  TMR2 always resets to 0 and
 	 * increments until it matches PR2 (after postscaler).
-	 * When matched, the PIR1.TMR2IF interrupt flag
-	 * is set and must be manually cleared. */
+	 * When they match the PIR1.TMR2IF interrupt flag
+	 * is set and must be cleared manually. */
 
 	T2CONbits.TMR2ON = 1;        // turn on timer
 	T2CONbits.T2CKPS = 0b00;     // 1:1 prescaler
@@ -27,28 +27,31 @@ void pwm_init(void)
 	INTCONbits.PEIE = 1;   // enable peripherial interrupts
 	PIE1bits.TMR2IE = 1;   // enable Timer2 interrupt
 
-	PR2 = 120;   // set period to 1 (interrupt frequency = (Fosc / 4) * PR2)
+	PR2 = 50;   // set period to 50 (interrupt frequency = input clock / PR2)
 
-	counter = 0;
+	/* Fosc = 4 MHz -> input clock = 4 Mhz / 4 = 1 MHz
+	 * 1 MHz / 50 = 20 kHz PWM refresh rate.
+	 * We don't want the interrupt rate to be too
+	 * hight because it will starve the UART. */
+
+	counter = 0;   // reset counter
 }
 
 void __interrupt() isr(void)
 {
-    if (PIR1bits.TMR2IF == 0)
+	if (PIR1bits.TMR2IF == 1)
 	{
-		return;
-	}
+		PIR1bits.TMR2IF = 0;   // clear the interrupt flag
 
-	PIR1bits.TMR2IF = 0;   // clear the interrupt flag
-	if (counter < target)
-	{
-		led_on();
-	}
-	else
-	{
-		led_off();
-	}
+		if (counter < target)
+		{
+			led_on();
+		}
+		else
+		{
+			led_off();
+		}
 
-	counter++;
+		counter++;
+	}
 }
-

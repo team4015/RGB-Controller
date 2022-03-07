@@ -94,6 +94,11 @@ int uart_receive(void * buffer, int size)
 	return count;
 }
 
+void uart_echo(void)
+{
+	uart_transmit_byte(uart_receive_byte());
+}
+
 //int uart_transmit_message(Message message)
 //{
 //	char * data = message_string(message);

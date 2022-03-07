@@ -11,6 +11,7 @@ void uart_transmit_byte(char byte);
 char uart_receive_byte(void);
 int uart_transmit(void * buffer, int size);
 int uart_receive(void * buffer, int size);
+void uart_echo(void);
 //int uart_transmit_message(Message message);
 //Message uart_receive_message(void);
 
