@@ -7,17 +7,19 @@ CCFLAGS += -mc90lib
 CCFLAGS += -mwarn=0
 
 ART = build
-EXE = rgb_controller
+EXE = rgb
 
 SRC += main.c
 SRC += init.c
 SRC += led.c
 SRC += uart.c
+SRC += pwm.c
 
 HDR += pins.h
 HDR += init.h
 HDR += led.h
 HDR += uart.h
+HDR += pwm.h
 
 # ================================================= #
 
