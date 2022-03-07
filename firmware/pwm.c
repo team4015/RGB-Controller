@@ -32,12 +32,13 @@ void pwm_init(void)
 	INTCONbits.PEIE = 1;   // enable peripherial interrupts
 	PIE1bits.TMR2IE = 1;   // enable Timer2 interrupt
 
-	PR2 = 50;   // set period to 50 (interrupt frequency = input clock / PR2)
-
 	/* Fosc = 4 MHz -> input clock = 4 Mhz / 4 = 1 MHz
-	 * 1 MHz / 50 = 20 kHz PWM refresh rate.
+	 * with a 1:1 prescaler and postscaler.
+	 * 1 MHz / 100 = 10 kHz PWM refresh rate.
 	 * We don't want the interrupt rate to be too
-	 * hight because it will starve the UART. */
+	 * high because it will starve the UART. */
+
+	PR2 = 100;   // set timer period (interrupt frequency = input clock / PR2)
 
 	// reset counters
 	red_counter =  0;
