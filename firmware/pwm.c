@@ -45,10 +45,10 @@ void pwm_init(void)
 	green_counter =  0;
 	blue_counter =  0;
 
-	// set all colours to be initially off
-	pwm_red(0);
-	pwm_green(0);
-	pwm_blue(0);
+	// set all colours to be initially on
+	pwm_red(255);
+	pwm_green(255);
+	pwm_blue(255);
 
 	// RGB //
 
@@ -77,14 +77,17 @@ void __interrupt() isr(void)
 void pwm_red(unsigned char brightness)
 {
 	red_brightness = brightness;
+	red_counter = 0;
 }
 
 void pwm_green(unsigned char brightness)
 {
 	green_brightness = brightness;
+	green_counter = 0;
 }
 
 void pwm_blue(unsigned char brightness)
 {
 	blue_brightness = brightness;
+	blue_counter = 0;
 }
