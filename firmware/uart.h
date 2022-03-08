@@ -9,8 +9,7 @@
 void uart_init(void);
 void uart_transmit_byte(char byte);
 char uart_receive_byte(void);
-int uart_transmit(void * buffer, int size);
-int uart_receive(void * buffer, int size);
-void uart_echo(void);
+void uart_transmit(void * buffer, int size);
+void uart_receive(void * buffer, int size);
 
 #endif /* UART_H */

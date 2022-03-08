@@ -5,9 +5,8 @@
 
 #include <xc.h>
 #include <pic16f690.h>
-#include <string.h>
+#include <stddef.h>
 
-#include "pins.h"
 #include "led.h"
 
 void uart_init(void)
@@ -56,47 +55,34 @@ char uart_receive_byte(void)
 	return RCREG;                 // read new byte from RX buffer
 }
 
-int uart_transmit(void * buffer, int size)
+void uart_transmit(void * buffer, int size)
 {
 	if (buffer == NULL || size < 0)
 	{
-		return ERROR;
+		return;
 	}
 
 	char * data = (char *)buffer;
-	int count = 0;
 
 	for (int i = 0; i < size; i++)
 	{
 		uart_transmit_byte(data[i]);
-		count++;
 	}
-
-	return count;
 }
 
-int uart_receive(void * buffer, int size)
+void uart_receive(void * buffer, int size)
 {
 	if (buffer == NULL || size < 0)
 	{
-		return ERROR;
+		return;
 	}
 
 	char * data = (char *)buffer;
-	int count = 0;
 
 	for (int i = 0; i < size; i++)
 	{
 		data[i] = uart_receive_byte();
-		count++;
 	}
-
-	return count;
-}
-
-void uart_echo(void)
-{
-	uart_transmit_byte(uart_receive_byte());
 }
 
 void putch(char byte)
