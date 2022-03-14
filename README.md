@@ -23,6 +23,6 @@ send(packet)
 
 # Serial Port
 
-The PIC communicates with the RoboRIO over UART, using only the TX and RX lines.  You will also need to connect the GND lines between the RGB controller board and the serial port on the RoboRIO.  The baud rate must be `9600` bps.  No parity bits are used.  The size of one byte must be 8 bits.
+The PIC communicates with the RoboRIO over UART, using only the TX and RX lines.  You will also need to connect the GND lines between the RGB controller board and the serial port on the RoboRIO.  The baud rate must be `9600` bps (the exact baud rate is `9615` if you want to be super precise).  No parity bits are used.  The size of one byte must be 8 bits.
 
 **IMPORTANT:**  The PIC cannot receive more than one byte at a time.  Therefore, make sure that the RoboRIO sends data one byte at a time, with a delay of 1 ms between each byte.  It is advised to flush the serial port TX buffer after writing each byte.  See the Python script `rgb.py` under `firmware` for an example.

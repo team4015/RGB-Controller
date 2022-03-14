@@ -28,7 +28,7 @@ void uart_init(void)
 
 	// BAUD RATE //
 
-	// 9600 bps @ Fosc = 4 MHz
+	// 9615 (~9600) bps @ Fosc = 4 MHz
 
 	TXSTAbits.BRGH = 1;     // use high baud rate settings
 	BAUDCTLbits.BRG16 = 1;  // use 16-bit baud rate generator
