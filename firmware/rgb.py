@@ -9,8 +9,8 @@ SUCCESS = 0
 SERIAL_PORT = "/dev/cu.usbserial-AQ00PEW7"
 BAUD_RATE = 9600
 HEADER = 0xFF
-TX_DELAY = 10e-3   # 1 ms
-TIMEOUT = 1       # 1s
+TX_DELAY = 10e-3   # 10 ms
+TIMEOUT = 1        # 1s
 
 def tx_byte(port, byte):
 	port.write(bytearray([byte]))
