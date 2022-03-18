@@ -9,9 +9,9 @@ static unsigned char red_counter = 0;
 static unsigned char green_counter = 0;
 static unsigned char blue_counter = 0;
 
-static unsigned char red_brightness = 1;
-static unsigned char green_brightness = 1;
-static unsigned char blue_brightness = 1;
+static unsigned char red_brightness = 0;
+static unsigned char green_brightness = 0;
+static unsigned char blue_brightness = 0;
 
 void pwm_init(void)
 {
@@ -47,8 +47,8 @@ void pwm_init(void)
 
 	// set all colours to be initially on
 	red_brightness = 255;
-	green_brightness = 255;
-	blue_brightness = 255;
+	green_brightness = 0;
+	blue_brightness = 180;
 
 	// RGB //
 

@@ -14,7 +14,7 @@ TIMEOUT = 1        # 1s
 
 def tx_byte(port, byte):
 	port.write(bytearray([byte]))
-	port.flushOutput()
+	port.flush()
 	time.sleep(TX_DELAY)
 
 def rgb(port, red, green, blue):
@@ -25,7 +25,7 @@ def rgb(port, red, green, blue):
 	tx_byte(port, blue)
 
 MIN_ARGC = 4
-MAX_ARGC = 4
+MAX_ARGC = 5
 
 def main(argv):
 	argc = len(argv)
@@ -36,10 +36,17 @@ def main(argv):
 	red = int(argv[1])
 	green = int(argv[2])
 	blue = int(argv[3])
+	loop = 0
 
-	port = Serial(port = SERIAL_PORT, baudrate = BAUD_RATE, timeout = TIMEOUT)
-	rgb(port, red, green, blue)
-	port.close()
+	if (argc == 5):
+		loop = int(argv[4])
+
+	while (1):
+		port = Serial(port = SERIAL_PORT, baudrate = BAUD_RATE, timeout = TIMEOUT)
+		rgb(port, red, green, blue)
+		port.close()
+		if (loop == 0):
+			break
 
 	return SUCCESS
 

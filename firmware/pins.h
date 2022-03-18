@@ -3,17 +3,17 @@
 
 // STATUS LED //
 
-#define LED        RA5
-#define LED_TRIS   TRISA5
+#define LED        RB6
+#define LED_TRIS   TRISB6
 
 // RGB LEDS //
 
-#define RED     RC5
-#define GREEN   RC4
+#define RED     RC4
+#define GREEN   RC5
 #define BLUE    RC3
 
-#define RED_TRIS     TRISA5
-#define GREEN_TRIS   TRISA4
-#define BLUE_TRIS    TRISA3
+#define RED_TRIS     TRISC4
+#define GREEN_TRIS   TRISC5
+#define BLUE_TRIS    TRISC3
 
 #endif /* PINS_H */
