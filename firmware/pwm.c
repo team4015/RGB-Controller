@@ -77,17 +77,14 @@ void __interrupt() isr(void)
 void pwm_red(unsigned char brightness)
 {
 	red_brightness = brightness;
-	red_counter = 0;
 }
 
 void pwm_green(unsigned char brightness)
 {
 	green_brightness = brightness;
-	green_counter = 0;
 }
 
 void pwm_blue(unsigned char brightness)
 {
 	blue_brightness = brightness;
-	blue_counter = 0;
 }

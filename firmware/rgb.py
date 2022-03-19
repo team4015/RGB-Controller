@@ -24,6 +24,10 @@ def rgb(port, red, green, blue):
 	tx_byte(port, green)
 	tx_byte(port, blue)
 
+def sweep(port):
+	for i in range(256):
+		rgb(port, 0, 0, i)
+
 MIN_ARGC = 4
 MAX_ARGC = 5
 
@@ -41,12 +45,15 @@ def main(argv):
 	if (argc == 5):
 		loop = int(argv[4])
 
+	port = Serial(port = SERIAL_PORT, baudrate = BAUD_RATE, timeout = TIMEOUT)
+
 	while (1):
-		port = Serial(port = SERIAL_PORT, baudrate = BAUD_RATE, timeout = TIMEOUT)
 		rgb(port, red, green, blue)
-		port.close()
 		if (loop == 0):
 			break
+
+	# sweep(port)
+	port.close()
 
 	return SUCCESS
 
