@@ -19852,6 +19852,8 @@ Source: &lt;a href="https://www.ckswitches.com/media/1429/1000.pdf"&gt; Datashee
 <part name="J1" library="jumper" library_urn="urn:adsk.eagle:library:252" deviceset="J" device="5MM" package3d_urn="urn:adsk.eagle:package:15465/1"/>
 <part name="J2" library="jumper" library_urn="urn:adsk.eagle:library:252" deviceset="J" device="5MM" package3d_urn="urn:adsk.eagle:package:15465/1"/>
 <part name="J3" library="jumper" library_urn="urn:adsk.eagle:library:252" deviceset="J" device="5MM" package3d_urn="urn:adsk.eagle:package:15465/1"/>
+<part name="JP7" library="jumper" library_urn="urn:adsk.eagle:library:252" deviceset="JP4E" device="" package3d_urn="urn:adsk.eagle:package:15463/1"/>
+<part name="JP8" library="jumper" library_urn="urn:adsk.eagle:library:252" deviceset="JP4E" device="" package3d_urn="urn:adsk.eagle:package:15463/1"/>
 </parts>
 <sheets>
 <sheet>
@@ -19907,8 +19909,8 @@ Source: &lt;a href="https://www.ckswitches.com/media/1429/1000.pdf"&gt; Datashee
 <instance part="SUPPLY7" gate="PE" x="-38.1" y="58.42" smashed="yes">
 <attribute name="VALUE" x="-42.545" y="53.721" size="1.778" layer="96"/>
 </instance>
-<instance part="SUPPLY8" gate="+5V" x="124.46" y="96.52" smashed="yes">
-<attribute name="VALUE" x="125.095" y="99.695" size="1.778" layer="96"/>
+<instance part="SUPPLY8" gate="+5V" x="129.54" y="96.52" smashed="yes">
+<attribute name="VALUE" x="130.175" y="99.695" size="1.778" layer="96"/>
 </instance>
 <instance part="JP2" gate="G$1" x="228.6" y="91.44" smashed="yes">
 <attribute name="NAME" x="224.79" y="91.44" size="1.778" layer="95" rot="R90"/>
@@ -19972,6 +19974,14 @@ Source: &lt;a href="https://www.ckswitches.com/media/1429/1000.pdf"&gt; Datashee
 <instance part="J3" gate="1" x="106.68" y="50.8" smashed="yes">
 <attribute name="NAME" x="104.14" y="52.705" size="1.778" layer="95"/>
 <attribute name="VALUE" x="104.14" y="48.26" size="1.778" layer="96"/>
+</instance>
+<instance part="JP7" gate="G$1" x="104.14" y="104.14" smashed="yes">
+<attribute name="NAME" x="100.33" y="104.14" size="1.778" layer="95" rot="R90"/>
+<attribute name="VALUE" x="112.395" y="104.14" size="1.778" layer="96" rot="R90"/>
+</instance>
+<instance part="JP8" gate="G$1" x="116.84" y="104.14" smashed="yes">
+<attribute name="NAME" x="113.03" y="104.14" size="1.778" layer="95" rot="R90"/>
+<attribute name="VALUE" x="125.095" y="104.14" size="1.778" layer="96" rot="R90"/>
 </instance>
 </instances>
 <busses>
@@ -20069,9 +20079,9 @@ Source: &lt;a href="https://www.ckswitches.com/media/1429/1000.pdf"&gt; Datashee
 </segment>
 <segment>
 <pinref part="SUPPLY8" gate="+5V" pin="+5V"/>
-<wire x1="124.46" y1="93.98" x2="124.46" y2="71.12" width="0.1524" layer="91"/>
+<wire x1="129.54" y1="93.98" x2="129.54" y2="71.12" width="0.1524" layer="91"/>
 <pinref part="U1" gate="G$1" pin="VDD"/>
-<wire x1="124.46" y1="71.12" x2="149.86" y2="71.12" width="0.1524" layer="91"/>
+<wire x1="129.54" y1="71.12" x2="149.86" y2="71.12" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="SUPPLY9" gate="+5V" pin="+5V"/>
@@ -20090,6 +20100,14 @@ Source: &lt;a href="https://www.ckswitches.com/media/1429/1000.pdf"&gt; Datashee
 <junction x="73.66" y="96.52"/>
 <pinref part="JP6" gate="G$1" pin="1"/>
 <wire x1="88.9" y1="96.52" x2="88.9" y2="101.6" width="0.1524" layer="91"/>
+<pinref part="JP7" gate="G$1" pin="1"/>
+<wire x1="101.6" y1="101.6" x2="101.6" y2="96.52" width="0.1524" layer="91"/>
+<wire x1="101.6" y1="96.52" x2="88.9" y2="96.52" width="0.1524" layer="91"/>
+<junction x="88.9" y="96.52"/>
+<pinref part="JP8" gate="G$1" pin="1"/>
+<wire x1="114.3" y1="101.6" x2="114.3" y2="96.52" width="0.1524" layer="91"/>
+<wire x1="114.3" y1="96.52" x2="101.6" y2="96.52" width="0.1524" layer="91"/>
+<junction x="101.6" y="96.52"/>
 </segment>
 </net>
 <net name="N$2" class="0">
@@ -20177,6 +20195,14 @@ Source: &lt;a href="https://www.ckswitches.com/media/1429/1000.pdf"&gt; Datashee
 <junction x="76.2" y="93.98"/>
 <pinref part="JP6" gate="G$1" pin="2"/>
 <wire x1="91.44" y1="93.98" x2="91.44" y2="101.6" width="0.1524" layer="91"/>
+<pinref part="JP7" gate="G$1" pin="2"/>
+<wire x1="104.14" y1="101.6" x2="104.14" y2="93.98" width="0.1524" layer="91"/>
+<wire x1="104.14" y1="93.98" x2="91.44" y2="93.98" width="0.1524" layer="91"/>
+<junction x="91.44" y="93.98"/>
+<pinref part="JP8" gate="G$1" pin="2"/>
+<wire x1="116.84" y1="101.6" x2="116.84" y2="93.98" width="0.1524" layer="91"/>
+<wire x1="116.84" y1="93.98" x2="104.14" y2="93.98" width="0.1524" layer="91"/>
+<junction x="104.14" y="93.98"/>
 </segment>
 </net>
 <net name="N$13" class="0">
@@ -20190,19 +20216,35 @@ Source: &lt;a href="https://www.ckswitches.com/media/1429/1000.pdf"&gt; Datashee
 <wire x1="93.98" y1="101.6" x2="93.98" y2="91.44" width="0.1524" layer="91"/>
 <wire x1="93.98" y1="91.44" x2="78.74" y2="91.44" width="0.1524" layer="91"/>
 <junction x="78.74" y="91.44"/>
+<pinref part="JP7" gate="G$1" pin="3"/>
+<wire x1="106.68" y1="101.6" x2="106.68" y2="91.44" width="0.1524" layer="91"/>
+<wire x1="106.68" y1="91.44" x2="93.98" y2="91.44" width="0.1524" layer="91"/>
+<junction x="93.98" y="91.44"/>
+<pinref part="JP8" gate="G$1" pin="3"/>
+<wire x1="119.38" y1="101.6" x2="119.38" y2="91.44" width="0.1524" layer="91"/>
+<wire x1="119.38" y1="91.44" x2="106.68" y2="91.44" width="0.1524" layer="91"/>
+<junction x="106.68" y="91.44"/>
 </segment>
 </net>
 <net name="N$14" class="0">
 <segment>
 <pinref part="JP5" gate="G$1" pin="4"/>
-<wire x1="81.28" y1="101.6" x2="81.28" y2="86.36" width="0.1524" layer="91"/>
+<wire x1="81.28" y1="101.6" x2="81.28" y2="99.06" width="0.1524" layer="91"/>
 <pinref part="Q3" gate="G$1" pin="D"/>
-<wire x1="81.28" y1="86.36" x2="81.28" y2="60.96" width="0.1524" layer="91"/>
+<wire x1="81.28" y1="99.06" x2="81.28" y2="60.96" width="0.1524" layer="91"/>
 <wire x1="81.28" y1="60.96" x2="114.3" y2="60.96" width="0.1524" layer="91"/>
 <pinref part="JP6" gate="G$1" pin="4"/>
-<wire x1="96.52" y1="101.6" x2="96.52" y2="86.36" width="0.1524" layer="91"/>
-<wire x1="96.52" y1="86.36" x2="81.28" y2="86.36" width="0.1524" layer="91"/>
-<junction x="81.28" y="86.36"/>
+<wire x1="96.52" y1="101.6" x2="96.52" y2="99.06" width="0.1524" layer="91"/>
+<wire x1="96.52" y1="99.06" x2="81.28" y2="99.06" width="0.1524" layer="91"/>
+<junction x="81.28" y="99.06"/>
+<pinref part="JP7" gate="G$1" pin="4"/>
+<wire x1="109.22" y1="101.6" x2="109.22" y2="99.06" width="0.1524" layer="91"/>
+<wire x1="109.22" y1="99.06" x2="96.52" y2="99.06" width="0.1524" layer="91"/>
+<junction x="96.52" y="99.06"/>
+<pinref part="JP8" gate="G$1" pin="4"/>
+<wire x1="121.92" y1="101.6" x2="121.92" y2="99.06" width="0.1524" layer="91"/>
+<wire x1="121.92" y1="99.06" x2="109.22" y2="99.06" width="0.1524" layer="91"/>
+<junction x="109.22" y="99.06"/>
 </segment>
 </net>
 <net name="N$1" class="0">
