@@ -1,9 +1,9 @@
-# RGB-Controller
+# RGB Controller
 Hardware and firmware for controlling LED RGB strips on FRC robots.
 
-## Protcol
+## Protocol
 
-The RGB Controller circuit board contains a PIC16F690 microcontroller that sets the RGB colour using PWM signals.  The PIC runs the C firmware found in the `firmware` folder.  The RoboRIO can talk to the PIC using a specific protocol.
+The RGB Controller circuit board contains a PIC16F690 microcontroller that sets the RGB colour using PWM signals.  The PIC runs the C firmware found in the `firmware` folder.  The RoboRIO can talk to the PIC using the following specific protocol:
 
 By default, the PIC waits for the byte `0xFF` on its RX line.  Any other bytes will be discarded.  Once the PIC receives the `0xFF` header byte, it will receive three more bytes from the RX line.  These three bytes are used as the RGB brightness values.  Therefore, so set the RGB colour, the RoboRIO must send a total of 4 bytes:
 
