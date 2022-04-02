@@ -50,6 +50,10 @@ void main(void)
 	uart_init();
 	pwm_init();
 
+	pwm_red(0);
+	pwm_green(0);
+	pwm_blue(0);
+
 	Colour colour;
 
 	while (1)

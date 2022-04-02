@@ -45,10 +45,10 @@ void pwm_init(void)
 	green_counter =  0;
 	blue_counter =  0;
 
-	// set all colours to be initially on
-	red_brightness = 255;
+	// set all colours to be initially off
+	red_brightness = 0;
 	green_brightness = 0;
-	blue_brightness = 180;
+	blue_brightness = 0;
 
 	// RGB //
 

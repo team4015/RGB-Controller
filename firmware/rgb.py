@@ -9,7 +9,7 @@ SUCCESS = 0
 SERIAL_PORT = "/dev/cu.usbserial-AQ00PEW7"
 BAUD_RATE = 9600
 HEADER = 0xFF
-TX_DELAY = 10e-3   # 10 ms
+TX_DELAY = 1.5e-3   # 10 ms
 TIMEOUT = 1        # 1s
 
 def tx_byte(port, byte):
@@ -18,11 +18,13 @@ def tx_byte(port, byte):
 	time.sleep(TX_DELAY)
 
 def rgb(port, red, green, blue):
-	print(f"R: {red}, G: {green}, B: {blue}")
 	tx_byte(port, HEADER)
 	tx_byte(port, red)
 	tx_byte(port, green)
 	tx_byte(port, blue)
+
+def open_port():
+	return Serial(port = SERIAL_PORT, baudrate = BAUD_RATE, timeout = TIMEOUT)
 
 def sweep(port):
 	for i in range(256):
@@ -45,9 +47,10 @@ def main(argv):
 	if (argc == 5):
 		loop = int(argv[4])
 
-	port = Serial(port = SERIAL_PORT, baudrate = BAUD_RATE, timeout = TIMEOUT)
+	port = open_port()
 
 	while (1):
+		print(f"R: {red}, G: {green}, B: {blue}")
 		rgb(port, red, green, blue)
 		if (loop == 0):
 			break
@@ -57,4 +60,5 @@ def main(argv):
 
 	return SUCCESS
 
-exit(main(sys.argv))
+if __name__ == "__main__":
+	exit(main(sys.argv))
