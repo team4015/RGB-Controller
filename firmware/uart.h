@@ -11,5 +11,7 @@ void uart_transmit_byte(char byte);
 char uart_receive_byte(void);
 void uart_transmit(void * buffer, int size);
 void uart_receive(void * buffer, int size);
+char uart_read_byte(void);
+void uart_isr_rx(void);
 
 #endif /* UART_H */

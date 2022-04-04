@@ -28,9 +28,14 @@ void init_hardware(void)
 
 	// OSCILLATOR FREQUENCY //
 
-	OSCCONbits.IRCF = 0b110;      // Fosc = 4 MHz
+	OSCCONbits.IRCF = 0b111;      // Fosc = 4 MHz
 	OSCCONbits.SCS = 1;           // use internal oscillator as system clock
 	OSCTUNEbits.TUN = 0b00000;    // tune internal oscillator to factory-calibrated frequency
+
+	// INTERRUPTS //
+
+	INTCONbits.GIE = 1;    // enable global interrupts
+	INTCONbits.PEIE = 1;   // enable peripherial interrupts
 
 	init_indicator();       // flash status LEDs
 }

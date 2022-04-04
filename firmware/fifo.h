@@ -18,7 +18,7 @@ struct FIFO
 
 typedef struct FIFO FIFO;
 
-void fifo_init(FIFO * fifo, char * buffer, int size);
+void fifo_init(FIFO * fifo, void * buffer, int size);
 void fifo_reset(FIFO * fifo);
 char fifo_read_byte(FIFO * fifo);
 void fifo_write_byte(FIFO * fifo, char value);

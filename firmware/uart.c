@@ -8,6 +8,11 @@
 #include <stddef.h>
 
 #include "led.h"
+#include "fifo.h"
+
+#define RX_FIFO_SIZE   64
+static char rx_buffer [RX_FIFO_SIZE];
+static FIFO rx_fifo;
 
 void uart_init(void)
 {
@@ -25,6 +30,8 @@ void uart_init(void)
 
 	RCSTAbits.CREN = 1;     // enable RX circuitry
 	RCSTAbits.RX9 = 1;      // use 8-bit reception
+	PIE1bits.RCIE = 1;      // enable RX interrupt
+	fifo_init(&rx_fifo, &rx_buffer, RX_FIFO_SIZE);
 
 	// BAUD RATE //
 
@@ -34,7 +41,7 @@ void uart_init(void)
 	BAUDCTLbits.BRG16 = 1;  // use 16-bit baud rate generator
 	BAUDCTLbits.SCKP = 0;   // don't invert transmitted bits
 	SPBRGH = 0;             // high register BRG multiplier
-	SPBRG = 103;            // low register BRG multiplier
+	SPBRG = 207;            // low register BRG multiplier
 }
 
 void uart_transmit_byte(char byte)
@@ -42,11 +49,15 @@ void uart_transmit_byte(char byte)
 	while (TXSTAbits.TRMT == 0);   // wait for TX register to empty
 	TXREG = byte;                  // load new byte into TX register
 }
-
+#include "init.h"
 char uart_receive_byte(void)
 {
 	if (RCSTAbits.OERR == 1)   // Reset receiver if RX buffer is overrun
 	{
+		while (1)
+		{
+			init_indicator();
+		}
 		RCSTAbits.CREN = 0;
 		RCSTAbits.CREN = 1;
 	}
@@ -88,4 +99,23 @@ void uart_receive(void * buffer, int size)
 void putch(char byte)
 {
     uart_transmit_byte(byte);
+}
+
+char uart_read_byte(void)
+{
+	while (fifo_is_empty(&rx_fifo));   // wait for new RX data to arrive
+	return fifo_read_byte(&rx_fifo);   // return the next byte
+}
+
+void uart_isr_rx(void)
+{
+	char value = uart_receive_byte();   // remove byte from RCREG (clears RCIF)
+	fifo_write_byte(&rx_fifo, value);   // byte will be dropped if FIFO is full
+	if (fifo_is_full(&rx_fifo))
+	{
+		while (1)
+		{
+			init_indicator();
+		}
+	}
 }

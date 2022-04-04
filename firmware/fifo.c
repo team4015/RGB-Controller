@@ -2,7 +2,7 @@
 
 #include <stddef.h>
 
-void fifo_init(FIFO * fifo, char * buffer, int size)
+void fifo_init(FIFO * fifo, void * buffer, int size)
 {
 	if (fifo == NULL || buffer == NULL || size < 1)
 	{

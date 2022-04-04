@@ -27,10 +27,7 @@ void pwm_init(void)
 	T2CONbits.TMR2ON = 1;        // turn on timer
 	T2CONbits.T2CKPS = 0b00;     // 1:1 prescaler
 	T2CONbits.TOUTPS = 0b0000;   // 1:1 postscaler
-
-	INTCONbits.GIE = 1;    // enable global interrupts
-	INTCONbits.PEIE = 1;   // enable peripherial interrupts
-	PIE1bits.TMR2IE = 1;   // enable Timer2 interrupt
+	PIE1bits.TMR2IE = 1;         // enable Timer2 interrupt
 
 	/* Fosc = 4 MHz -> input clock = 4 Mhz / 4 = 1 MHz
 	 * with a 1:1 prescaler and postscaler.
@@ -58,22 +55,6 @@ void pwm_init(void)
 	BLUE_TRIS = 0;
 }
 
-void __interrupt() isr(void)
-{
-	if (PIR1bits.TMR2IF == 1)
-	{
-		PIR1bits.TMR2IF = 0;   // clear the interrupt flag
-
-		RED = (red_counter < red_brightness);
-		GREEN = (green_counter < green_brightness);
-		BLUE = (blue_counter < blue_brightness);
-
-		red_counter++;
-		green_counter++;
-		blue_counter++;
-	}
-}
-
 void pwm_red(unsigned char brightness)
 {
 	red_brightness = brightness;
@@ -87,4 +68,17 @@ void pwm_green(unsigned char brightness)
 void pwm_blue(unsigned char brightness)
 {
 	blue_brightness = brightness;
+}
+
+void pwm_isr(void)
+{
+	RED = (red_counter < red_brightness);
+	GREEN = (green_counter < green_brightness);
+	BLUE = (blue_counter < blue_brightness);
+
+	red_counter++;
+	green_counter++;
+	blue_counter++;
+
+	PIR1bits.TMR2IF = 0;   // clear the interrupt flag
 }

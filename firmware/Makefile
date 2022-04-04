@@ -14,12 +14,14 @@ SRC += init.c
 SRC += led.c
 SRC += uart.c
 SRC += pwm.c
+SRC += fifo.c
 
 HDR += pins.h
 HDR += init.h
 HDR += led.h
 HDR += uart.h
 HDR += pwm.h
+HDR += fifo.h
 
 # ================================================= #
 

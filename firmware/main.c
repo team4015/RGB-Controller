@@ -34,14 +34,19 @@
 
 #define HEADER   0xFF
 
-struct __attribute__((packed)) Colour
+#include <stdbool.h>
+enum Colour
 {
-	unsigned char red;
-	unsigned char green;
-	unsigned char blue;
-};
+	RED,
+	GREEN,
+	BLUE,
 
-typedef struct Colour Colour;
+	NUM_COLOURS
+};
+typedef enum Colour Colour;
+static bool header = false;
+static char rgb [3];
+static Colour colour = RED;
 
 void main(void)
 {
@@ -50,24 +55,67 @@ void main(void)
 	uart_init();
 	pwm_init();
 
-	pwm_red(0);
-	pwm_green(0);
-	pwm_blue(0);
-
-	Colour colour;
+	pwm_red(255);
+	pwm_green(255);
+	pwm_blue(255);
 
 	while (1)
 	{
-		while (uart_receive_byte() != HEADER);   // wait for the header byte on the UART
+		if (header && colour == NUM_COLOURS)
+		{
+			pwm_red(rgb[RED]);
+			pwm_green(rgb[GREEN]);
+			pwm_blue(rgb[BLUE]);
+			header = false;
+		}
+		//uart_transmit_byte(uart_read_byte());
+		//while (uart_read_byte() != HEADER);
 
-		// receive the RGB values
-		led_on();
-		uart_receive(&colour, sizeof(Colour));
-		led_off();
+		//// receive the RGB values
+		//led_on();
+		//char red = uart_read_byte();
+		//char green = uart_read_byte();
+		//char blue = uart_read_byte();
+		//led_off();
 
-		// update the brightness for each colour
-		pwm_red(colour.red);
-		pwm_green(colour.green);
-		pwm_blue(colour.blue);
+		//// update the brightness for each colour
+		//pwm_red(red);
+		//pwm_green(green);
+		//pwm_blue(blue);
+	}
+}
+
+void __interrupt() isr(void)
+{
+	if (PIR1bits.TMR2IF == 1)
+	{
+		pwm_isr();
+	}
+	else if (PIR1bits.RCIF == 1)
+	{
+		// RCIF is automatically cleared after reading RCREG
+		//uart_isr_rx();
+		char value = uart_receive_byte();
+
+		if (header)
+		{
+			// header has already been received
+			if (colour < NUM_COLOURS)
+			{
+				rgb[colour] = value;
+				colour++;
+			}
+			//else
+			//{
+			//	led_off();
+			//}
+		}
+		else if (value == HEADER)
+		{
+			// header has just been received
+			header = true;
+			colour = RED;
+			//led_on();
+		}
 	}
 }
