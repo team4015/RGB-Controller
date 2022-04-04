@@ -34,15 +34,6 @@
 
 #define HEADER   0xFF
 
-struct __attribute__((packed)) Colour
-{
-	unsigned char red;
-	unsigned char green;
-	unsigned char blue;
-};
-
-typedef struct Colour Colour;
-
 void main(void)
 {
 	init_hardware();
@@ -54,20 +45,22 @@ void main(void)
 	pwm_green(0);
 	pwm_blue(0);
 
-	Colour colour;
-
 	while (1)
 	{
 		while (uart_receive_byte() != HEADER);   // wait for the header byte on the UART
 
-		// receive the RGB values
 		led_on();
-		uart_receive(&colour, sizeof(Colour));
+
+		// receive the RGB values
+		char red = uart_receive_byte();
+		char green = uart_receive_byte();
+		char blue = uart_receive_byte();
+
 		led_off();
 
 		// update the brightness for each colour
-		pwm_red(colour.red);
-		pwm_green(colour.green);
-		pwm_blue(colour.blue);
+		pwm_red(red);
+		pwm_green(green);
+		pwm_blue(blue);
 	}
 }

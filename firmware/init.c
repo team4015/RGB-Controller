@@ -28,7 +28,7 @@ void init_hardware(void)
 
 	// OSCILLATOR FREQUENCY //
 
-	OSCCONbits.IRCF = 0b110;      // Fosc = 4 MHz
+	OSCCONbits.IRCF = 0b111;      // Fosc = 8 MHz
 	OSCCONbits.SCS = 1;           // use internal oscillator as system clock
 	OSCTUNEbits.TUN = 0b00000;    // tune internal oscillator to factory-calibrated frequency
 
