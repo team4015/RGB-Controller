@@ -9,11 +9,11 @@
 // RGB LEDS //
 
 #define RED     RC4
-#define GREEN   RC3
-#define BLUE    RC5
+#define GREEN   RC5
+#define BLUE    RC3
 
 #define RED_TRIS     TRISC4
-#define GREEN_TRIS   TRISC3
-#define BLUE_TRIS    TRISC5
+#define GREEN_TRIS   TRISC5
+#define BLUE_TRIS    TRISC3
 
 #endif /* PINS_H */

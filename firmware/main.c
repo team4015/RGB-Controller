@@ -33,6 +33,19 @@
 #include "pwm.h"
 
 #define HEADER   0xFF
+#define FLASH_DELAY   10000000
+
+inline void rgb(unsigned char red, unsigned char green, unsigned char blue)
+{
+	pwm_red(red);
+	pwm_green(green);
+	pwm_blue(blue);
+}
+
+inline void purple(void)
+{
+	rgb(200, 0, 128);
+}
 
 void main(void)
 {
@@ -41,9 +54,7 @@ void main(void)
 	uart_init();
 	pwm_init();
 
-	pwm_red(0);
-	pwm_green(0);
-	pwm_blue(0);
+	purple();
 
 	while (1)
 	{
@@ -59,8 +70,6 @@ void main(void)
 		led_off();
 
 		// update the brightness for each colour
-		pwm_red(red);
-		pwm_green(green);
-		pwm_blue(blue);
+		rgb(red, green, blue);
 	}
 }

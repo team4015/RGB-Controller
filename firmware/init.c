@@ -5,7 +5,7 @@
 
 #include "pins.h"
 
-#define LED_DELAY     75000
+#define LED_DELAY     150000
 
 void init_hardware(void)
 {
